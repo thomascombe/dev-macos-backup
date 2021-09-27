@@ -17,8 +17,11 @@ projectszip: init
 brewlist: init
 	sh ./scripts/brewlist.sh
 
-full: crontab hosts projects-zip brewlist
-speed: crontab hosts projects brewlist
+database: init
+	sh ./scripts/database.sh
+
+full: crontab hosts projects-zip brewlist database
+speed: crontab hosts projects brewlist database
 
 .DEFAULT_GOAL := help
 help:
