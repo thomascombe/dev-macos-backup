@@ -24,10 +24,11 @@ callArgumentMethod() {
 }
 
 commit() {
+  cd "$backupFolder"
   if [ ! -d .git ]; then
     return 0
   fi;
-  git add -A .
+  git add -A
   date=$(date)
   git commit -m "$date"
 }
