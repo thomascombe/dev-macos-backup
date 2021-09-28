@@ -1,4 +1,19 @@
 source ./includes/variables.sh
 
-mkdir -p "$backupFolder/hosts"
-cat /etc/hosts > "$backupFolder/hosts/hosts.backup"
+dir="$backupFolder/hosts"
+
+backup() {
+  mkdir -p "$dir"
+  cat /etc/hosts > "$dir/hosts.backup"
+}
+
+restore() {
+  cd "$dir"
+  if [[ ! -f "hosts.backup" ]]; then
+      echo "hosts.backup not exist."
+      return 1
+  fi
+  sudo cat hosts.backup > /etc/hosts
+}
+
+callArgumentMethod $1

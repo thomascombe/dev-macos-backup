@@ -1,7 +1,20 @@
 source ./includes/variables.sh
 
-mkdir -p "$backupFolder/database"
+dir="$backupFolder/database"
 
-mysqldump --user=""$DB_USER"" --password="$DB_PASSWORD" --all-databases > "$backupFolder/database/dump.sql"
+backup() {
+  mkdir -p "$dir"
+  mysqldump --user="$DB_USER" --password="$DB_PASSWORD" --all-databases > "$dir/dump.sql"
+}
 
-echo $DB_USER
+restore() {
+  cd "$dir"
+  if [[ ! -f "dump.sql" ]]; then
+      echo "dump.sql not exist."
+      return 1
+  fi
+
+  mysql --user="$DB_USER" --password="$DB_PASSWORD" < "dump.sql"
+}
+
+callArgumentMethod $1
