@@ -20,8 +20,11 @@ brewlist: init
 database: init
 	sh ./scripts/database.sh
 
-full: crontab hosts projects-zip brewlist database
-speed: crontab hosts projects brewlist database
+end:
+	sh ./scripts/end.sh
+
+full: crontab hosts projects-zip brewlist database end
+speed: crontab hosts projects brewlist database end
 
 ## restore
 

@@ -22,3 +22,12 @@ callArgumentMethod() {
     echo "Invalid argument $argument"
   fi
 }
+
+commit() {
+  if [ ! -d .git ]; then
+    return 0
+  fi;
+  git add -A .
+  date=$(date)
+  git commit -m "$date"
+}
