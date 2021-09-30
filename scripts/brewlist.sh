@@ -1,10 +1,14 @@
+#!/bin/bash
+
 source ./includes/variables.sh
 
+dir="$backupFolder/brewlist"
+
 backup() {
-  rm "$backupFolder/brewlist/Brewfile.old"
-  mv "$backupFolder/brewlist/Brewfile" "$backupFolder/brewlist/Brewfile.old"
-  mkdir -p "$backupFolder/brewlist"
-  cd "$backupFolder/brewlist" && brew bundle dump
+  rm "$dir/Brewfile.old"
+  mv "$dir/Brewfile" "$backupFolder/brewlist/Brewfile.old"
+  mkdir -p "$dir"
+  cd "$dir" && brew bundle dump
 }
 
 restore() {

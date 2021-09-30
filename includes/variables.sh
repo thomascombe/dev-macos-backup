@@ -11,4 +11,6 @@ then
    export $(cat .env | xargs)
 fi
 
+PATH="/usr/local/bin:/usr/bin:/bin:$CUSTOM_PATH"
+
 source ./includes/functions.sh

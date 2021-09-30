@@ -1,3 +1,4 @@
+#!/bin/bash
 source ./includes/variables.sh
 
 dir="$backupFolder/database"
