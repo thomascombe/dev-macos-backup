@@ -5,6 +5,9 @@ init: ## init backup
 crontab: init
 	sh ./scripts/crontab.sh
 
+dotfile: init
+	sh ./scripts/dotfile.sh
+
 hosts: init
 	sh ./scripts/hosts.sh
 
@@ -26,13 +29,16 @@ sshkeys: init
 end:
 	sh ./scripts/end.sh
 
-full: crontab hosts projects-zip brewlist database sshkeys end
-speed: crontab hosts projects brewlist database sshkeys end
+full: crontab hosts projectszip brewlist database sshkeys dotfile end
+speed: crontab hosts projects brewlist database sshkeys dotfile end
 
 ## restore
 
 crontab-restore: init
 	sh ./scripts/crontab.sh restore
+
+dotfile-restore: init
+	sh ./scripts/dotfile.sh restore
 
 hosts-restore: init
 	sh ./scripts/hosts.sh restore
@@ -49,8 +55,12 @@ brewlist-restore: init
 database-restore: init
 	sh ./scripts/database.sh restore
 
-full-restore: crontab-restore hosts-restore projects-zip-restore brewlist-restore database-restore
-speed-restore: crontab-restore hosts-restore projects-restore brewlist-restore database-restore
+full-restore: crontab-restore hosts-restore projects-zip-restore brewlist-restore dotfile-restore database-restore
+speed-restore: crontab-restore hosts-restore projects-restore brewlist-restore dotfile-restore database-restore
+
+# Sync
+sync:
+	sh ./kopia.sh
 
 .DEFAULT_GOAL := help
 help:
